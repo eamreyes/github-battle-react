@@ -1,20 +1,16 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-require('./index.ss')
+require('./index.css')
 
 class App extends React.Component {
     render() {
         return (
-            // Looks like HTML, but is actually transpiled into Javascript
-            // JSX
-            <div>
-                Hello world!
-            </div>
+            <div>Hello world!</div>
         )
     }
 }
 
-ReactDom.render(
+ReactDOM.render(
     <App/>,
     document.getElementById('app')
 )
