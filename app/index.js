@@ -5,7 +5,10 @@ require('./index.css')
 class App extends React.Component {
     render() {
         return (
-            <div>Hello world!</div>
+            <div>
+                <h1>Hello world!</h1>
+                <p>I'm coming to you live from my first React module!</p>
+            </div>
         )
     }
 }
