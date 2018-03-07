@@ -9,8 +9,6 @@ class App extends React.Component {
         return (
             <div>
                 <h1>Hello world!</h1>
-                <p>I'm coming to you live from my first React module!</p>
-                <Avatar username='mrhobbles' name='Eddie' img='https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'/>
             </div>
         )
     }
