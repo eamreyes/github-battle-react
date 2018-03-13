@@ -1,31 +1,22 @@
 var React = require('react');
 var PropTypes = require('prop-types');
 var Link = require('react-router-dom').Link;
+var PlayerPreview = require('./PlayerPreview');
 
-function PlayerPreview (props) {
+function ResetPlayer (props) {
     return (
-        <div className='column'>
-            <img
-                className='avatar'
-                src={props.avatar}
-                alt={'Avatar for ' + props.username} 
-            />
-            <h2 className='username'>@{props.username}</h2>
-            <button
-                className='reset'
-                onClick={props.onReset.bind(null, props.id)}>
-                    Reset
-            </button>
-        </div>
+        <button
+            className='reset'
+            onClick={props.onReset.bind(null, props.id)}>
+            Reset
+        </button>
     )
 }
 
-PlayerPreview.propTypes = {
-    username: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
+ResetPlayer.propTypes = {
     onReset: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
-}
+};
 
 class PlayerInput extends React.Component {
     constructor(props) {
@@ -140,9 +131,9 @@ class Battle extends React.Component {
                     {playerOneImage !== null &&
                         <PlayerPreview
                             avatar={playerOneImage}
-                            id='playerOne'
-                            username={playerOneName}
-                            onReset={this.handleReset}/>}
+                            username={playerOneName}>
+                            <ResetPlayer onReset={this.handleReset} id='playerOne' />
+                        </PlayerPreview>}
 
                     {!playerTwoName && 
                     <PlayerInput 
@@ -154,8 +145,9 @@ class Battle extends React.Component {
                     <PlayerPreview
                         avatar={playerTwoImage}
                         id='playerTwo'
-                        username={playerTwoName}
-                        onReset={this.handleReset}/>}
+                        username={playerTwoName}>
+                        <ResetPlayer onReset={this.handleReset} id='playerTwo'/>
+                    </PlayerPreview>}
                 </div>
                 {playerOneImage && playerTwoImage &&
                     <Link
