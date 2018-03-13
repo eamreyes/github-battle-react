@@ -4,6 +4,7 @@ var PropTypes = require('prop-types');
 var queryString = require('query-string');
 var api = require('../utils/api');
 var PlayerPreview = require('./PlayerPreview');
+var Loading = require('./Loading');
 
 
 function Profile (props) {
@@ -83,14 +84,13 @@ class Results extends React.Component {
     }
 
     render() {
-        console.log("battle.render()");
         var error = this.state.error;
         var winner = this.state.winner;
         var loser = this.state.loser;
         var loading = this.state.loading;
 
         if (loading === true) {
-            return <p>Loading...</p>
+            return <Loading />
         }
 
         if (error !== null) {
