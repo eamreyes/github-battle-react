@@ -1,13 +1,13 @@
-var React = require('react');
-var PropTypes = require('prop-types');
-var Link = require('react-router-dom').Link;
-var PlayerPreview = require('./PlayerPreview');
+const React = require('react');
+const PropTypes = require('prop-types');
+const Link = require('react-router-dom').Link;
+const PlayerPreview = require('./PlayerPreview');
 
-function ResetPlayer (props) {
+function ResetPlayer ({onReset, id}) {
     return (
         <button
             className='reset'
-            onClick={props.onReset.bind(null, props.id)}>
+            onClick={onReset.bind(null, id)}>
             Reset
         </button>
     )
@@ -25,18 +25,11 @@ class PlayerInput extends React.Component {
         this.state = {
             username: ''
         }
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        var value = event.target.value;
-        this.setState(function(){
-            return {
-                username: value
-            }
-        });
+        const value = event.target.value;
+        this.setState(() => ({ username: value }));
     }
 
     handleSubmit(event) {
@@ -45,23 +38,24 @@ class PlayerInput extends React.Component {
     }
 
     render() {
+        const {label, username } = this.state;
         return (
-            <form className='column' onSubmit={this.handleSubmit}>
+            <form className='column' onSubmit={e => this.handleSubmit(e)}>
                 <label className='header' htmlFor='username'>
-                    {this.props.label}
+                    {label}
                 </label>
                 <input
                     id='username'
                     placeholder='github username'
                     type='text'
                     autoComplete='off'
-                    value={this.state.username}
-                    onChange={this.handleChange}>
+                    value={username}
+                    onChange={e => this.handleChange(e)}>
                 </input>
                 <button
                     className='button'
                     type='submit'
-                    disabled={!this.state.username}>
+                    disabled={!username}>
                         Submit
                 </button>
             </form>
@@ -92,31 +86,22 @@ class Battle extends React.Component {
     }
 
     handleSubmit(id, username) {
-        this.setState(function () {
-            var newState = {};
-            newState[id + 'Name'] = username;
-            newState[id + 'Image'] = 'https://github.com/' + username + '.png?size=200';
-
-            return newState;
-        });
+        this.setState( () => ({
+            [id + 'Name']: username,
+            [id + 'Image']: `https://github.com/${username}.png?size=200`,
+        }));
     }
 
     handleReset(id) {
-        this.setState(function () {
-            var newState = {};
-            newState[id + 'Name'] = '';
-            newState[id + 'Image'] = null;
-
-            return newState;
-        });
+        this.setState(() => ({
+            [id + 'Name']: '',
+            [id + 'Image']: null,
+        }));
     }
 
     render() {
-        var match = this.props.match;
-        var playerOneName = this.state.playerOneName;
-        var playerTwoName = this.state.playerTwoName;
-        var playerOneImage = this.state.playerOneImage;
-        var playerTwoImage = this.state.playerTwoImage;
+        const match = this.props.match;
+        const {playerOneName, playerOneImage, playerTwoName, playerTwoImage} = this.state;
 
         return (
             <div>
@@ -154,7 +139,7 @@ class Battle extends React.Component {
                         className='button'
                         to={{
                             pathname: match.url + '/results',
-                            search: '?playerOneName=' + playerOneName + '&playerTwoName=' + playerTwoName,
+                            search: `?playerOneName=${playerOneName}&playerTwoName=${playerTwoName}`,
                         }}>
                         Battle    
                     </Link>}
