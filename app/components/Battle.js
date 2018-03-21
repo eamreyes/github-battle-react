@@ -19,12 +19,13 @@ ResetPlayer.propTypes = {
 };
 
 class PlayerInput extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            username: ''
-        }
+    state = {
+        username: ''
+    }
+    static propTypes = {
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        onSubmit: PropTypes.func.isRequired,
     }
 
     handleChange(event) {
@@ -63,36 +64,22 @@ class PlayerInput extends React.Component {
     }
 }
 
-PlayerInput.propTypes = {
-    id: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-}
-
-
 class Battle extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            playerOneName: '',
-            playerOneImage: null,
-            playerTwoName: '',
-            playerTwoImage: null,
-        }
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleReset = this.handleReset.bind(this);
+    state = {
+        playerOneName: '',
+        playerOneImage: null,
+        playerTwoName: '',
+        playerTwoImage: null,
     }
 
-    handleSubmit(id, username) {
+    handleSubmit = (id, username) => {
         this.setState( () => ({
             [id + 'Name']: username,
             [id + 'Image']: `https://github.com/${username}.png?size=200`,
         }));
     }
 
-    handleReset(id) {
+    handleReset = (id) => {
         this.setState(() => ({
             [id + 'Name']: '',
             [id + 'Image']: null,
