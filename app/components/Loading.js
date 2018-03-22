@@ -10,7 +10,7 @@ const styles = {
 
 class Loading extends React.Component {
     state = {
-        text: props.text,
+        text: this.props.text,
     }
     static defaultProps = {
         text: 'Loading',
